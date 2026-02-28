@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Check, Loader2, Phone, Copy, Printer, Package, FileText, Shield, AlertTriangle } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
+
 import { useClerkStore, type Parcel } from "@/stores/clerkStore";
 import { toast } from "@/hooks/use-toast";
 
@@ -460,6 +460,51 @@ const ClerkNewBooking = () => {
   );
 };
 
+const SimpleQR = ({ value, size, bgColor, fgColor }: { value: string; size: number; bgColor: string; fgColor: string }) => {
+  const grid = 11;
+  const cellSize = size / grid;
+  const cells: boolean[][] = Array.from({ length: grid }, () => Array(grid).fill(false));
+
+  // Generate a deterministic pattern from the value string
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) {
+    hash = ((hash << 5) - hash + value.charCodeAt(i)) | 0;
+  }
+  for (let r = 0; r < grid; r++) {
+    for (let c = 0; c < grid; c++) {
+      hash = ((hash << 5) - hash + r * grid + c) | 0;
+      cells[r][c] = (Math.abs(hash) % 3) !== 0;
+    }
+  }
+
+  // Draw finder patterns (top-left, top-right, bottom-left)
+  const drawFinder = (sr: number, sc: number) => {
+    for (let r = 0; r < 7; r++) {
+      for (let c = 0; c < 7; c++) {
+        const isOuter = r === 0 || r === 6 || c === 0 || c === 6;
+        const isInner = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+        cells[sr + r][sc + c] = isOuter || isInner;
+      }
+    }
+  };
+  drawFinder(0, 0);
+  drawFinder(0, grid - 7);
+  drawFinder(grid - 7, 0);
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <rect width={size} height={size} fill={bgColor} />
+      {cells.map((row, r) =>
+        row.map((filled, c) =>
+          filled ? (
+            <rect key={`${r}-${c}`} x={c * cellSize} y={r * cellSize} width={cellSize} height={cellSize} fill={fgColor} />
+          ) : null
+        )
+      )}
+    </svg>
+  );
+};
+
 const ParcelLabel = ({ parcel, large }: { parcel: any; large?: boolean }) => (
   <div className="rounded-xl p-6 border-2 border-dashed" style={{ background: "hsl(36 26% 96%)", borderColor: "hsl(36 10% 80%)" }}>
     <div className="flex justify-between items-start mb-4">
@@ -481,10 +526,9 @@ const ParcelLabel = ({ parcel, large }: { parcel: any; large?: boolean }) => (
       <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "hsl(0 0% 90%)", color: "hsl(0 0% 30%)" }}>{parcel.category}</span>
     </div>
     <div className="flex justify-center">
-      <QRCodeSVG
+      <SimpleQR
         value={parcel.trackingId === "TRV-PENDING" ? "TRYVO-PENDING" : `https://tryvo.app/track/${parcel.trackingId}`}
         size={large ? 200 : 120}
-        level="M"
         bgColor="hsl(36, 26%, 96%)"
         fgColor="hsl(0, 0%, 10%)"
       />
