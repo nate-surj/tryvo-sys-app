@@ -1,0 +1,298 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: 'Satoshi', sans-serif;
+    --font-body: 'General Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --background: 36 26% 96%;
+    --foreground: 0 0% 10%;
+
+    --card: 36 26% 96%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 36 26% 96%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 21 92% 47%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 28% 14%;
+    --secondary-foreground: 37 25% 93%;
+
+    --muted: 40 5% 59%;
+    --muted-foreground: 40 5% 59%;
+
+    --accent: 240 28% 14%;
+    --accent-foreground: 37 25% 93%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 36 10% 88%;
+    --input: 36 10% 88%;
+    --ring: 21 92% 47%;
+
+    --radius: 0.75rem;
+
+    --surface-dark: 0 0% 6%;
+    --surface-dark-card: 0 0% 10%;
+    --surface-light: 36 26% 96%;
+    --text-light: 37 25% 93%;
+    --text-dark: 0 0% 10%;
+
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 37 25% 93%;
+    --sidebar-primary: 21 92% 47%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 28% 14%;
+    --sidebar-accent-foreground: 37 25% 93%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 21 92% 47%;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 37 25% 93%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 37 25% 93%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 37 25% 93%;
+
+    --primary: 21 92% 47%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 28% 14%;
+    --secondary-foreground: 37 25% 93%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 40 5% 59%;
+
+    --accent: 240 28% 14%;
+    --accent-foreground: 37 25% 93%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 21 92% 47%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    font-family: 'General Sans', sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Satoshi', sans-serif;
+  }
+}
+
+/* ── Type Scale ── */
+@layer components {
+  .text-display-xl {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 900;
+    font-size: 80px;
+    letter-spacing: -2.5px;
+    line-height: 1.05;
+  }
+  .text-display-l {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    letter-spacing: -2px;
+    line-height: 1.08;
+  }
+  .text-display-m {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+  }
+  .text-heading {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+  }
+  .text-subheading {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+  .text-body-l {
+    font-family: 'General Sans', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  .text-body-m {
+    font-family: 'General Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .text-label {
+    font-family: 'General Sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .text-caption {
+    font-family: 'General Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+  }
+
+  /* ── Section Utilities ── */
+  .section-dark {
+    background-color: hsl(var(--surface-dark));
+    color: hsl(var(--text-light));
+  }
+  .section-light {
+    background-color: hsl(var(--surface-light));
+    color: hsl(var(--text-dark));
+  }
+  .section-orange {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--text-dark));
+  }
+  .card-dark {
+    background-color: #141414;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .card-light {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .text-brand {
+    color: hsl(var(--primary));
+  }
+  .bg-brand {
+    background-color: hsl(var(--primary));
+  }
+
+  .frosted-glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: hsl(0 0% 6% / 0.7);
+  }
+  .frosted-glass-light {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: hsl(36 26% 96% / 0.7);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full px-7 py-3 font-medium transition-all duration-200;
+    background-color: #E8500A;
+    color: #fff;
+    font-family: 'General Sans', sans-serif;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(232,80,10,0.35);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full px-7 py-3 font-medium transition-all duration-200;
+    border: 1.5px solid hsl(var(--text-light));
+    color: hsl(var(--text-light));
+    font-family: 'General Sans', sans-serif;
+  }
+  .btn-ghost:hover {
+    background-color: hsl(var(--text-light) / 0.1);
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center rounded-full px-7 py-3 font-medium transition-all duration-200;
+    background-color: hsl(var(--surface-dark));
+    color: hsl(var(--text-light));
+    font-family: 'General Sans', sans-serif;
+  }
+  .btn-dark:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px hsl(0 0% 0% / 0.3);
+  }
+
+  .label-caps {
+    @apply text-xs font-medium uppercase;
+    letter-spacing: 0.15em;
+    color: #E8500A;
+    font-family: 'Satoshi', sans-serif;
+  }
+
+  .heading-xl {
+    font-family: 'Satoshi', sans-serif;
+    @apply text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight;
+  }
+  .heading-lg {
+    font-family: 'Satoshi', sans-serif;
+    @apply text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight;
+  }
+  .heading-md {
+    font-family: 'Satoshi', sans-serif;
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
+  }
+
+  .body-lg {
+    font-family: 'General Sans', sans-serif;
+    @apply text-lg md:text-xl leading-relaxed;
+    color: hsl(var(--muted-foreground));
+  }
+  .body-md {
+    font-family: 'General Sans', sans-serif;
+    @apply text-base leading-relaxed;
+  }
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
